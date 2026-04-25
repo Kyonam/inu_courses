@@ -3,10 +3,10 @@ import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const { id } = await params;
     const supabase = createAdminClient();
     
     // Fetch items for specific order
@@ -24,10 +24,10 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const { id } = await params;
     const { status } = await req.json();
     const supabase = createAdminClient();
 
