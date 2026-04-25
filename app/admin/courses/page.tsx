@@ -15,7 +15,7 @@ export default function AdminCoursesPage() {
   const [courses, setCourses] = useState<CourseWithStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState<'이수구분' | '이수영역' | '교과목명'>('교과목명');
+  const [sortBy, setSortBy] = useState<'이수구분' | '이수영역' | '교과목명' | '담당교수'>('교과목명');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,13 +77,22 @@ export default function AdminCoursesPage() {
     course.담당교수?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
-  const paginatedCourses = filteredCourses.slice(
+  const sortedCourses = [...filteredCourses].sort((a, b) => {
+    const aValue = a[sortBy] || '';
+    const bValue = b[sortBy] || '';
+    
+    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const totalPages = Math.ceil(sortedCourses.length / ITEMS_PER_PAGE);
+  const paginatedCourses = sortedCourses.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
 
-  const toggleSort = (column: '이수구분' | '이수영역' | '교과목명') => {
+  const toggleSort = (column: '이수구분' | '이수영역' | '교과목명' | '담당교수') => {
     if (sortBy === column) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     } else {
@@ -136,20 +145,25 @@ export default function AdminCoursesPage() {
                   className="p-6 text-[11px] font-black text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-indigo-600 transition-colors"
                   onClick={() => toggleSort('교과목명')}
                 >
-                  <div className="flex items-center gap-1">교과목명 {sortBy === '교과목명' && <ArrowUpDown size={12} />}</div>
+                  <div className="flex items-center gap-1">교과목명 {sortBy === '교과목명' && <ArrowUpDown size={12} className={cn(sortOrder === 'desc' && "rotate-180 transition-transform")} />}</div>
                 </th>
-                <th className="p-6 text-[11px] font-black text-zinc-400 uppercase tracking-widest">담당교수</th>
+                <th 
+                  className="p-6 text-[11px] font-black text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-indigo-600 transition-colors"
+                  onClick={() => toggleSort('담당교수')}
+                >
+                  <div className="flex items-center gap-1">담당교수 {sortBy === '담당교수' && <ArrowUpDown size={12} className={cn(sortOrder === 'desc' && "rotate-180 transition-transform")} />}</div>
+                </th>
                 <th 
                   className="p-6 text-[11px] font-black text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-indigo-600 transition-colors"
                   onClick={() => toggleSort('이수구분')}
                 >
-                  <div className="flex items-center gap-1">이수구분 {sortBy === '이수구분' && <ArrowUpDown size={12} />}</div>
+                  <div className="flex items-center gap-1">이수구분 {sortBy === '이수구분' && <ArrowUpDown size={12} className={cn(sortOrder === 'desc' && "rotate-180 transition-transform")} />}</div>
                 </th>
                 <th 
                    className="p-6 text-[11px] font-black text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-indigo-600 transition-colors"
                    onClick={() => toggleSort('이수영역')}
                 >
-                  <div className="flex items-center gap-1">이수영역 {sortBy === '이수영역' && <ArrowUpDown size={12} />}</div>
+                  <div className="flex items-center gap-1">이수영역 {sortBy === '이수영역' && <ArrowUpDown size={12} className={cn(sortOrder === 'desc' && "rotate-180 transition-transform")} />}</div>
                 </th>
                 <th className="p-6 text-[11px] font-black text-zinc-400 uppercase tracking-widest text-center">학점</th>
                 <th className="p-6 text-[11px] font-black text-zinc-400 uppercase tracking-widest text-right">수강가격</th>
