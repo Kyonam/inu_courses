@@ -1,7 +1,7 @@
 'use client';
 
 import { Sidebar } from '@/components/Sidebar';
-import { FileText, ChevronRight, Home, GraduationCap, DollarSign, User, Calendar, BookOpen, ShoppingCart, Clock, CheckCircle2, Trash2 } from 'lucide-react';
+import { FileText, ChevronRight, Home, GraduationCap, DollarSign, User, Calendar, BookOpen, ShoppingCart, Clock, CheckCircle2, Trash2, Info } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { LoginButton } from '@/components/LoginButton';

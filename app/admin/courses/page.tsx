@@ -5,8 +5,9 @@ import { Search, Plus, Filter, Edit, Trash2, BookOpen, User, GraduationCap, Doll
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { AdminCourseModal } from '@/components/AdminCourseModal';
+import { Course } from '@/types/course';
 
-interface CourseWithStats extends any {
+interface CourseWithStats extends Course {
   enrollmentCount: number;
 }
 

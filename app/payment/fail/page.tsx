@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { AlertCircle, Loader2 } from 'lucide-react';
 
-export default function PaymentFailPage() {
+function FailContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -69,5 +69,17 @@ export default function PaymentFailPage() {
 
       </div>
     </div>
+  );
+}
+
+export default function PaymentFailPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#f8f9fa] dark:bg-[#000000] flex items-center justify-center">
+        <Loader2 className="w-10 h-10 text-indigo-600 animate-spin" />
+      </div>
+    }>
+      <FailContent />
+    </Suspense>
   );
 }

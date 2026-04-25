@@ -17,6 +17,7 @@ import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
 import { PaymentInfoModal } from '@/components/PaymentInfoModal';
 import { loadTossPayments } from '@tosspayments/tosspayments-sdk';
+import { Course } from '@/types/course';
 
 export default function CartPage() {
   const { cartItems, cartCount, totalCredits, totalPrice, removeFromCart, clearCart, loading: cartLoading, setIsLoginModalOpen } = useCart();
