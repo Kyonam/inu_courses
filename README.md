@@ -56,6 +56,7 @@
 > NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
 이외 화면이나 로직은 수정하지 말고, 필요한 초기화 코드만 작성
+
 ---
 ### supabase 연결 확인
 
