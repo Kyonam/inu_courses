@@ -767,16 +767,36 @@ service_role 키는 절대 클라이언트에 노출하지 않는다.
 2. 깃허브에 코드베이스 업로드하기
 
 ```
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Kyonam/inu_courses.git
-git push -u origin main
-
+https://github.com/Kyonam/inu_courses.git
 깃허브에 업로드해줘.
 ```
 ---
 ### Vercel에서 배포하기
 
 배포시 .env.local 파일에 있는 환경 변수를 반드시 등록해야 함
+---
+### Google Cloud Console에 승인된 JavaScript 원본 추가
+
+배포가 이루어진 후에는 구글 로그인을 위해 배포 URL을 등록해주어야 함
+
+```
+Google Cloud Console의 [Google 인증 플랫폼]-[클라이언트]에서
+해당 프로젝트를 선택하고 [웹 애플리케이션의 클라이언트 ID]에 있는
+[승인된 JavaScript 원본]에 배포 URL 추가
+```
+---
+### Supabase의 Redirect URLs 수정
+
+배포가 이루어진 후에는 구글 로그인을 위해 Supabase의 Redirect URLs 수정해 주어야 함
+
+```
+Vercel 주소에서 로그인이 정상적으로 작동하려면, Supabase 설정에서 아래 확인이 필요할 수 있음:
+
+- Supabase 대시보드 접속
+- Authentication -> URL Configuration 메뉴로 이동
+- Redirect URLs 항목에 [배포주소]/auth/callback 주소가 추가
+	예) https://inu-courses.vercel.app/auth/callback
+
+※ [배포주소]/auth에서 auth는 개발 상황에 따라 이름이 다를 수 있음
+```
+---
