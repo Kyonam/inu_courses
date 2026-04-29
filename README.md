@@ -774,6 +774,7 @@ https://github.com/Kyonam/inu_courses.git
 ### Vercel에서 배포하기
 
 배포시 .env.local 파일에 있는 환경 변수를 반드시 등록해야 함
+
 ---
 ### Google Cloud Console에 승인된 JavaScript 원본 추가
 
